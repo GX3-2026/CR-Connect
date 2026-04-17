@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JP Mora - Asesor de posicionamiento BPO y Networking estratégico Tech en Costa Rica.">
+    <title>CR Connect | JP Mora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --accent-purple: #8a2be2;
+            --tech-blue: #00d4ff;
+            --bg-dark: #000000; /* Negro profundo OLED */
+            --card-bg: rgba(10, 10, 10, 0.75);
+        }
+
+        /* Animación de Pulso Ultra Sutil para el botón */
+        @keyframes pulse-subtle {
+            0% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(138, 43, 226, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0); }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #tech-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            /* Eliminamos opacidad general para que los colores sean puros */
+        }
+
+        .container {
+            max-width: 450px; width: 100%;
+            text-align: center; padding: 40px 20px;
+            position: relative; z-index: 1;
+        }
+
+        /* Mantenemos el logo con su brillo sutil original */
+        .logo-svg {
+            width: 255px;
+            height: auto; 
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4));
+        }
+
+        .tagline {
+            color: var(--accent-purple); font-size: 0.7rem;
+            letter-spacing: 4px; text-transform: uppercase;
+            font-weight: 700; margin-bottom: 35px;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px; padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+
+        /* Título modificado: Glow removido, solo degradado nítido */
+        .title-grad-small {
+            background: linear-gradient(90deg, #8a2be2, #00c9ff);
+            color: #ffffff;
+            border-radius: 50px;
+            padding: 9px 20px;
+            letter-spacing: 1px;
+            margin: 0 auto 18px;
+            display: inline-flex;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            pointer-events: none;
+            /* box-shadow removido para nitidez absoluta */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 { font-size: 1.9rem; margin-bottom: 12px; letter-spacing: -0.5px; }
+
+        .bio-text {
+            color: #b0b0b0;
+            font-size: 0.98rem;
+            line-height: 1.6; margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .btn-action {
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; padding: 18px; border-radius: 16px;
+            font-weight: 700; margin-top: 15px; transition: 0.3s;
+            text-transform: uppercase; font-size: 0.9rem;
+        }
+
+        .btn-linkedin {
+            background: linear-gradient(135deg, var(--accent-purple), #4b0082);
+            color: white; border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 25px;
+            animation: pulse-subtle 3s ease-in-out infinite;
+        }
+
+        .btn-events {
+            background: #111;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-action:hover { transform: translateY(-4px); filter: brightness(1.2); box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+        .btn-action i { margin-right: 12px; font-size: 1.2rem; }
+
+        .link-procomer {
+            display: inline-flex; align-items: center;
+            color: rgba(255, 255, 255, 0.5); text-decoration: none;
+            font-size: 0.85rem; margin-top: 30px;
+            transition: 0.3s; font-weight: 600;
+        }
+
+        .link-procomer:hover { color: var(--tech-blue); }
+
+        .copyright {
+            margin-top: 50px; font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.2); letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="tech-canvas"></canvas>
+
+    <main class="container">
+        <svg class="logo-svg" viewBox="0 0 300 100" shape-rendering="geometricPrecision">
+            <circle cx="50" cy="50" r="40" fill="#8a2be2" />
+            <text x="50" y="62" font-family="Segoe UI, sans-serif" font-size="36" font-weight="900" text-anchor="middle" fill="white">CR</text>
+            <text x="100" y="58" font-family="Segoe UI, sans-serif" font-size="38" font-weight="700" fill="white">Connect</text>
+        </svg>
+        <p class="tagline">Triggering High Value Connections</p>
+
+        <article class="profile-card">
+            <div class="title-grad-small">CAMINO A LA EMPLEABILIDAD 2026</div>
+
+            <h1>JP Mora</h1>
+            <p class="bio-text">
+                Impulsando el posicionamiento de talento BPO y el Networking estratégico en el ecosistema tech de Costa Rica.
+            </p>
+
+            <a href="https://www.linkedin.com/in/goalbroker/" class="btn-action btn-linkedin" target="_blank" rel="noopener">
+                <i class="fab fa-linkedin"></i> CONECTAR EN LINKEDIN
+            </a>
+
+            <a href="TU_URL_DE_FORMULARIO" class="btn-action btn-events" target="_blank" rel="noopener">
+                <i class="fas fa-calendar-alt"></i> PRÓXIMOS EVENTOS
+            </a>
+
+            <a href="https://talento.procomer.com/" class="link-procomer" target="_blank" rel="noopener">
+                <i class="fas fa-external-link-alt"></i> Visitar Talento Procomer
+            </a>
+        </article>
+
+        <footer class="copyright">
+            &copy; 2026 CR Connect, Costa Rica.
+        </footer>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('tech-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let incandescentPoints = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3
+                });
+            }
+        }
+
+        function createIncandescentPoint() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 2, 
+                vy: (Math.random() - 0.5) * 2,
+                life: 1,
+                decay: 0.006,
+                color: Math.random() > 0.5 ? '#00d4ff' : '#8a2be2'
+            };
+        }
+
+        function draw() {
+            // Limpieza total para mantener negro puro
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if(Math.random() > 0.96 && incandescentPoints.length < 10) {
+                incandescentPoints.push(createIncandescentPoint());
+            }
+
+            // Modo de fusión para que las luces sumen brillo
+            ctx.globalCompositeOperation = 'lighter';
+
+            incandescentPoints.forEach((ip, i) => {
+                ctx.beginPath();
+                // Grosor 1x: Puntos incandescentes un poco más grandes y brillantes
+                ctx.arc(ip.x, ip.y, 2.5 * ip.life, 0, Math.PI * 2);
+                ctx.fillStyle = ip.color;
+                ctx.shadowBlur = 20 * ip.life;
+                ctx.shadowColor = ip.color;
+                ctx.fill();
+                ip.x += ip.vx; ip.y += ip.vy;
+                ip.life -= ip.decay;
+                if(ip.life <= 0) incandescentPoints.splice(i, 1);
+            });
+
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = 'rgba(158, 63, 246, 0.8)';
+            // Grosor 1x: Líneas de conexión más visibles (aumentada opacidad y grosor base)
+            ctx.strokeStyle = 'rgba(158, 63, 246, 0.25)'; 
+
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.beginPath(); 
+                // Grosor 2x: Partículas base más grandes
+                ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); 
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        // Grosor 1x: Líneas más gruesas al estar cerca
+                        ctx.lineWidth = (1 - dist / 120) * 1.0; 
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+
+            // Restaurar modo de fusión por defecto
+            ctx.globalCompositeOperation = 'source-over';
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', init);
+        init(); draw();
+    </script>
+</body>
+</html>
