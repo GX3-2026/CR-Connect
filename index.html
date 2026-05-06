@@ -67,181 +67,139 @@
     </article>
     <footer class="copyright">&copy; 2026 CR Connect, Costa Rica.</footer>
   </main>
-  <script>
-    'use strict';
-    const canvas = document.getElementById('tech-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let incandescentPoints = [];
-    function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; for (let i = 0; i < 60; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 }); }
-    function createIncandescentPoint() { return { x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, life: 1, decay: 0.006, color: Math.random() > 0.5 ? '#00d4ff' : '#8a2be2' }; }
-    function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); if (Math.random() > 0.96 && incandescentPoints.length < 10) incandescentPoints.push(createIncandescentPoint()); ctx.globalCompositeOperation = 'lighter'; incandescentPoints.forEach((ip, i) => { ctx.beginPath(); ctx.arc(ip.x, ip.y, 2.5 * ip.life, 0, Math.PI * 2); ctx.fillStyle = ip.color; ctx.shadowBlur = 20 * ip.life; ctx.shadowColor = ip.color; ctx.fill(); ip.x += ip.vx; ip.y += ip.vy; ip.life -= ip.decay; if (ip.life <= 0) incandescentPoints.splice(i, 1); }); ctx.shadowBlur = 0; ctx.fillStyle = 'rgba(158, 63, 246, 0.8)'; ctx.strokeStyle = 'rgba(158, 63, 246, 0.25)'; particles.forEach((p, i) => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); ctx.fill(); for (let j = i + 1; j < particles.length; j++) { const p2 = particles[j]; const dist = Math.hypot(p.x - p2.x, p.y - p2.y); if (dist < 120) { ctx.lineWidth = (1 - dist / 120) * 1.0; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); } } }); ctx.globalCompositeOperation = 'source-over'; requestAnimationFrame(draw); }
-    window.addEventListener('resize', init); init(); draw();
+  
+<script>
+'use strict';
+const canvas = document.getElementById('tech-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let incandescentPoints = [];
+function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; for (let i = 0; i < 60; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 }); }
+function createIncandescentPoint() { return { x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, life: 1, decay: 0.006, color: Math.random() > 0.5 ? '#00d4ff' : '#8a2be2' }; }
+function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); if (Math.random() > 0.96 && incandescentPoints.length < 10) incandescentPoints.push(createIncandescentPoint()); ctx.globalCompositeOperation = 'lighter'; incandescentPoints.forEach((ip, i) => { ctx.beginPath(); ctx.arc(ip.x, ip.y, 2.5 * ip.life, 0, Math.PI * 2); ctx.fillStyle = ip.color; ctx.shadowBlur = 20 * ip.life; ctx.shadowColor = ip.color; ctx.fill(); ip.x += ip.vx; ip.y += ip.vy; ip.life -= ip.decay; if (ip.life <= 0) incandescentPoints.splice(i, 1); }); ctx.shadowBlur = 0; ctx.fillStyle = 'rgba(158, 63, 246, 0.8)'; ctx.strokeStyle = 'rgba(158, 63, 246, 0.25)'; particles.forEach((p, i) => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); ctx.fill(); for (let j = i + 1; j < particles.length; j++) { const p2 = particles[j]; const dist = Math.hypot(p.x - p2.x, p.y - p2.y); if (dist < 120) { ctx.lineWidth = (1 - dist / 120) * 1.0; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); } } }); ctx.globalCompositeOperation = 'source-over'; requestAnimationFrame(draw); }
+window.addEventListener('resize', init, { passive: true }); init(); draw();
 
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwIBJGsOMS8yunHb9iSz1Djnnz3x6YQ-s-RHaHX9egEkdotjpnNiJ3ZmPeXb_TtjQHW/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwIBJGsOMS8yunHb9iSz1Djnnz3x6YQ-s-RHaHX9egEkdotjpnNiJ3ZmPeXb_TtjQHW/exec';
 const deviceType = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-
 const dictionaries = {
-  en: {
-    slogan: 'Triggering High-Value Connections',
-    bio: "Driving BPO talent positioning and strategic networking in Costa Rica's tech ecosystem.",
-    completed: 'Survey completed. Your profile is ready.',
-    linkedin: 'CONNECT ON LINKEDIN',
-    back: 'BACK',
-    continue: 'CONTINUE',
-    steps: [
-      { key: 'role', label: '1. Role', type: 'buttons', options: ['C-Level','Recruiter','Student','Investor','Manager','Dev/Engineer','Sales','Marketing'] },
-      { key: 'industry', label: '2. Industry', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Education','Healthcare','Finance','Other'] },
-      { key: 'lookingFor', label: '3. Looking For', type: 'buttons', options: ['Jobs','Hiring','Networking','Partnerships','Clients','Discovering','Founding','Investing'] },
-      { key: 'companyName', label: '4. Company Name', type: 'input', placeholder: 'Enter company name' }
-    ]
-  },
-  es: {
-    slogan: 'Impulsando Conexiones de Alto Valor',
-    bio: 'Impulsando el posicionamiento de talento BPO y el networking estratégico en el ecosistema tech de Costa Rica.',
-    completed: 'Encuesta completada. Tu perfil está listo.',
-    linkedin: 'CONECTAR EN LINKEDIN',
-    back: 'ATRÁS',
-    continue: 'CONTINUAR',
-    steps: [
-      { key: 'role', label: '1. Rol', type: 'buttons', options: ['C-Level','Reclutador','Estudiante','Inversionista','Gerente','Dev/Engineer','Ventas','Marketing'] },
-      { key: 'industry', label: '2. Industria', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Educación','Salud','Finanzas','Otro'] },
-      { key: 'lookingFor', label: '3. Qué buscas', type: 'buttons', options: ['Empleo','Contratación','Networking','Alianzas','Clientes','Descubrir','Fundar','Invertir'] },
-      { key: 'companyName', label: '4. Nombre de la empresa', type: 'input', placeholder: 'Ingresa el nombre de la empresa' }
-    ]
-  }
+  en: { slogan: 'Triggering High-Value Connections', bio: "Driving BPO talent positioning and strategic networking in Costa Rica's tech ecosystem.", completed: 'Survey completed. Your profile is ready.', linkedin: 'CONNECT ON LINKEDIN', back: 'BACK', continue: 'CONTINUE', steps: [ { key: 'role', label: '1. Role', type: 'buttons', options: ['C-Level','Recruiter','Student','Investor','Manager','Dev/Engineer','Sales','Marketing'] }, { key: 'industry', label: '2. Industry', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Education','Healthcare','Finance','Other'] }, { key: 'lookingFor', label: '3. Looking For', type: 'buttons', options: ['Jobs','Hiring','Networking','Partnerships','Clients','Discovering','Founding','Investing'] }, { key: 'companyName', label: '4. Company Name', type: 'input', placeholder: 'Enter company name' } ] },
+  es: { slogan: 'Impulsando Conexiones de Alto Valor', bio: 'Impulsando el posicionamiento de talento BPO y el networking estratégico en el ecosistema tech de Costa Rica.', completed: 'Encuesta completada. Tu perfil está listo.', linkedin: 'CONECTAR EN LINKEDIN', back: 'ATRÁS', continue: 'CONTINUAR', steps: [ { key: 'role', label: '1. Rol', type: 'buttons', options: ['C-Level','Reclutador','Estudiante','Inversionista','Gerente','Dev/Engineer','Ventas','Marketing'] }, { key: 'industry', label: '2. Industria', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Educación','Salud','Finanzas','Otro'] }, { key: 'lookingFor', label: '3. Qué buscas', type: 'buttons', options: ['Empleo','Contratación','Networking','Alianzas','Clientes','Descubrir','Fundar','Invertir'] }, { key: 'companyName', label: '4. Nombre de la empresa', type: 'input', placeholder: 'Ingresa el nombre de la empresa' } ] }
 };
 
-// --- Envío de datos al Web App ---
-function sendSurveyData(formData) {
-  fetch(WEB_APP_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },  // 👈 clave
-    body: JSON.stringify(formData)
-  })
-  .then(response => response.json())
-  .then(result => {
-    if (result.ok) {
-      alert("Datos enviados correctamente");
-    } else {
-      alert("Error al enviar");
-    }
-  })
-  .catch(err => {
-    console.error("Error en el envío:", err);
-    alert("Error de conexión");
-  });
+let lang = null;
+let current = 0;
+const answers = {};
+const surveyForm = document.getElementById('survey-form');
+const survey = document.getElementById('survey');
+const finishedNote = document.getElementById('finishedNote');
+const linkedinBtn = document.getElementById('linkedinBtn');
+const bio = document.getElementById('bioText');
+const slogan = document.querySelector('.tagline');
+const langGate = document.getElementById('languageGate');
+const nameTitle = document.getElementById('nameTitle');
+
+function setLanguage(next) {
+  lang = next;
+  document.documentElement.lang = next;
+  slogan.textContent = dictionaries[lang].slogan;
+  nameTitle.style.display = 'block';
+  bio.style.display = 'block';
+  bio.textContent = dictionaries[lang].bio;
+  linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
+  langGate.classList.add('hidden');
+  surveyForm.classList.remove('hidden');
+  nameTitle.classList.add('fade-in');
+  bio.classList.add('fade-in');
+  current = 0;
+  render();
 }
 
-// Captura del botón continuar
-document.getElementById('continue-button').addEventListener('click', () => {
-  const formData = {
-    role: document.querySelector('[name="role"]').value,
-    industry: document.querySelector('[name="industry"]').value,
-    lookingFor: document.querySelector('[name="lookingFor"]').value,
-    companyName: document.querySelector('[name="companyName"]').value,
-    deviceType: deviceType
+document.querySelectorAll('#langOptions .option-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+
+function render() {
+  const step = dictionaries[lang].steps[current];
+  let html = '<div class="survey-step"><button type="button" class="btn-action back" id="backBtn" style="background:#111;color:#fff;margin-bottom:12px;width:100%;"><i class="fas fa-arrow-left"></i> ' + dictionaries[lang].back + '</button><div class="question-label">' + step.label + '</div>';
+  if (step.type === 'buttons') {
+    html += '<div class="options">' + step.options.map(o => `<button type="button" class="option-btn" data-value="${o}">${o}</button>`).join('') + '</div>';
+  } else {
+    html += `<input id="companyInput" name="companyName" class="text-input" type="text" placeholder="${step.placeholder}">`;
+    html += `<div class="survey-footer"><button id="nextBtn" type="submit" class="btn-action btn-linkedin" style="display:flex; margin-top:14px; width:100%;">${dictionaries[lang].continue}</button></div>`;
+  }
+  html += '</div>';
+  survey.innerHTML = html;
+
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) backBtn.onclick = () => {
+    if (current === 0) {
+      lang = null;
+      document.documentElement.lang = 'en';
+      bio.style.display = 'none';
+      nameTitle.style.display = 'none';
+      surveyForm.classList.add('hidden');
+      langGate.classList.remove('hidden');
+      finishedNote.style.display = 'none';
+      linkedinBtn.style.display = 'none';
+      survey.innerHTML = '';
+      return;
+    }
+    current--;
+    render();
   };
-  sendSurveyData(formData);
-});
 
-      en: { slogan: 'Triggering High-Value Connections', bio: "Driving BPO talent positioning and strategic networking in Costa Rica's tech ecosystem.", completed: 'Survey completed. Your profile is ready.', linkedin: 'CONNECT ON LINKEDIN', back: 'BACK', continue: 'CONTINUE', steps: [ { key: 'role', label: '1. Role', type: 'buttons', options: ['C-Level','Recruiter','Student','Investor','Manager','Dev/Engineer','Sales','Marketing'] }, { key: 'industry', label: '2. Industry', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Education','Healthcare','Finance','Other'] }, { key: 'lookingFor', label: '3. Looking For', type: 'buttons', options: ['Jobs','Hiring','Networking','Partnerships','Clients','Discovering','Founding','Investing'] }, { key: 'companyName', label: '4. Company Name', type: 'input', placeholder: 'Enter company name' } ] },
-      es: { slogan: 'Impulsando Conexiones de Alto Valor', bio: 'Impulsando el posicionamiento de talento BPO y el networking estratégico en el ecosistema tech de Costa Rica.', completed: 'Encuesta completada. Tu perfil está listo.', linkedin: 'CONECTAR EN LINKEDIN', back: 'ATRÁS', continue: 'CONTINUAR', steps: [ { key: 'role', label: '1. Rol', type: 'buttons', options: ['C-Level','Reclutador','Estudiante','Inversionista','Gerente','Dev/Engineer','Ventas','Marketing'] }, { key: 'industry', label: '2. Industria', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Educación','Salud','Finanzas','Otro'] }, { key: 'lookingFor', label: '3. Qué buscas', type: 'buttons', options: ['Empleo','Contratación','Networking','Alianzas','Clientes','Descubrir','Fundar','Invertir'] }, { key: 'companyName', label: '4. Nombre de la empresa', type: 'input', placeholder: 'Ingresa el nombre de la empresa' } ] }
-    };
-
-    let lang = null;
-    let current = 0;
-    const answers = {};
-    const surveyForm = document.getElementById('survey-form');
-    const survey = document.getElementById('survey');
-    const finishedNote = document.getElementById('finishedNote');
-    const linkedinBtn = document.getElementById('linkedinBtn');
-    const bio = document.getElementById('bioText');
-    const slogan = document.querySelector('.tagline');
-    const langGate = document.getElementById('languageGate');
-    const nameTitle = document.getElementById('nameTitle');
-
-    function setLanguage(next) {
-      lang = next;
-      document.documentElement.lang = next;
-      slogan.textContent = dictionaries[lang].slogan;
-      nameTitle.style.display = 'block';
-      bio.style.display = 'block';
-      bio.textContent = dictionaries[lang].bio;
-      linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
-      langGate.classList.add('hidden');
-      surveyForm.classList.remove('hidden');
-      nameTitle.classList.add('fade-in');
-      bio.classList.add('fade-in');
-      render();
-    }
-
-    document.querySelectorAll('#langOptions .option-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
-
-    function render() {
-      const step = dictionaries[lang].steps[current];
-      let html = '<div class="survey-step"><button type="button" class="btn-action back" id="backBtn" style="background:#111;color:#fff;margin-bottom:12px;width:100%;"><i class="fas fa-arrow-left"></i> ' + dictionaries[lang].back + '</button><div class="question-label">' + step.label + '</div>';
-      if (step.type === 'buttons') {
-        html += '<div class="options">' + step.options.map(o => `<button type="button" class="option-btn" data-value="${o}">${o}</button>`).join('') + '</div>';
+  if (step.type === 'buttons') {
+    document.querySelectorAll('.option-btn').forEach(btn => btn.addEventListener('click', e => {
+      answers[step.key] = e.currentTarget.dataset.value;
+      current++;
+      if (current >= dictionaries[lang].steps.length) {
+        surveyForm.requestSubmit();
       } else {
-        html += `<input id="companyInput" name="companyName" class="text-input" type="text" placeholder="${step.placeholder}">`;
-        html += `<div class="survey-footer"><button id="nextBtn" type="submit" class="btn-action btn-linkedin" style="display:flex; margin-top:14px; width:100%;">${dictionaries[lang].continue}</button></div>`;
+        render();
       }
-      html += '</div>';
-      survey.innerHTML = html;
+    }));
+  } else {
+    const input = document.getElementById('companyInput');
+    const footer = document.querySelector('.survey-footer');
+    input.addEventListener('input', () => { footer.style.display = input.value.trim() ? 'block' : 'none'; });
+  }
+}
 
-      const backBtn = document.getElementById('backBtn');
-      if (backBtn) backBtn.onclick = () => { if (current === 0) { lang = null; document.documentElement.lang = 'en'; bio.style.display = 'none'; nameTitle.style.display = 'none'; surveyForm.classList.add('hidden'); langGate.classList.remove('hidden'); finishedNote.style.display = 'none'; linkedinBtn.style.display = 'none'; survey.innerHTML = ''; return; } if (current > 0) { current--; render(); } };
-
-      if (step.type === 'buttons') {
-        document.querySelectorAll('.option-btn').forEach(btn => btn.addEventListener('click', e => {
-          answers[step.key] = e.currentTarget.dataset.value;
-          current++;
-          if (current >= dictionaries[lang].steps.length) { surveyForm.requestSubmit(); } else { render(); }
-        }));
-      } else {
-        const input = document.getElementById('companyInput');
-        const footer = document.querySelector('.survey-footer');
-        input.addEventListener('input', () => { footer.style.display = input.value.trim() ? 'block' : 'none'; });
-      }
-    }
-
-    async function submitForm() {
-      const formData = {
-        role: answers.role || '',
-        industry: answers.industry || '',
-        lookingFor: answers.lookingFor || '',
-        companyName: document.querySelector('[name="companyName"]').value,
-        deviceType: deviceType
-      };
-      try {
-        const response = await fetch(WEB_APP_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-        if (result.ok) {
-          finishedNote.textContent = dictionaries[lang].completed;
-          finishedNote.style.display = 'block';
-          linkedinBtn.style.display = 'flex';
-          linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
-          survey.innerHTML = '';
-        } else {
-          alert('Error al enviar');
-        }
-      } catch (err) {
-        console.error('Error en el envío:', err);
-        alert('Error de conexión');
-      }
-    }
-
-    surveyForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      if (!lang) return;
-      if (!document.querySelector('[name="companyName"]').value.trim()) return;
-      await submitForm();
+async function submitForm() {
+  const formData = {
+    role: answers.role || '',
+    industry: answers.industry || '',
+    lookingFor: answers.lookingFor || '',
+    companyName: answers.companyName || document.querySelector('[name="companyName"]').value || '',
+    deviceType
+  };
+  try {
+    const response = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
     });
-  </script>
+    let result = null;
+    try { result = await response.json(); } catch (_) {}
+    if (result && result.ok === true) {
+      finishedNote.textContent = dictionaries[lang].completed;
+      finishedNote.style.display = 'block';
+      linkedinBtn.style.display = 'flex';
+      linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
+      survey.innerHTML = '';
+    } else {
+      throw new Error('Bad response');
+    }
+  } catch (err) {
+    console.error('Error en el envío:', err);
+    alert('Error de conexión');
+  }
+}
+
+surveyForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!lang) return;
+  await submitForm();
+});
+</script>
+
 </body>
 </html>
