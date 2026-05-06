@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JP Mora - BPO positioning and strategic tech networking advisor in Costa Rica.">
+  <title>CR Connect | JP Mora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root { --accent-purple: #8a2be2; --tech-blue: #00d4ff; --bg-dark: #000000; --card-bg: rgba(10, 10, 10, 0.75); }
+    @keyframes pulse-subtle {0% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.2); }70% { box-shadow: 0 0 0 10px rgba(138, 43, 226, 0); }100% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0); }}
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: var(--bg-dark); color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; }
+    #tech-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .container { max-width: 450px; width: 100%; text-align: center; padding: 28px 16px 36px; position: relative; z-index: 1; }
+    .logo-svg { width: 255px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.4)); }
+    .tagline { color: var(--accent-purple); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 20px; text-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }
+    .profile-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 28px 18px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); }
+    h1 { font-size: 1.8rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .bio-text { color: #b0b0b0; font-size: 0.96rem; line-height: 1.55; margin-bottom: 18px; font-weight: 400; }
+    .survey-step { text-align: left; margin-top: 14px; }
+    .question-label { font-size: 0.78rem; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(255,255,255,0.58); margin-bottom: 10px; font-weight: 700; }
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .option-btn, .btn-action { display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 15px 12px; border-radius: 16px; font-weight: 700; transition: 0.25s; text-transform: uppercase; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.08); cursor: pointer; min-height: 50px; }
+    .option-btn { background: #101010; color: #fff; width: 100%; }
+    .option-btn:hover, .btn-action:hover { transform: translateY(-3px); filter: brightness(1.12); box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+    .option-btn:hover { background: linear-gradient(135deg, var(--accent-purple), #00c9ff); }
+    .option-btn.selected { background: linear-gradient(135deg, var(--accent-purple), #00c9ff); border-color: rgba(255,255,255,0.18); }
+    .text-input { width: 100%; background: #101010; color: #fff; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 15px 16px; outline: none; font-size: 0.92rem; }
+    .text-input::placeholder { color: rgba(255,255,255,0.35); }
+    .survey-footer { margin-top: 14px; display: none; }
+    .finished-note { display: none; margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.2); color: #dffbff; font-size: 0.92rem; font-weight: 600; }
+    .btn-linkedin { background: linear-gradient(135deg, var(--accent-purple), #4b0082); color: white; margin-top: 16px; animation: pulse-subtle 3s ease-in-out infinite; display: none; width: 100%; }
+    .copyright { margin-top: 44px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.2); letter-spacing: 1px; }
+    .hidden { display: none !important; }
+    .fade-in { animation: fadeIn 0.24s ease; }
+    @media (max-width: 420px) { .options { grid-template-columns: 1fr; } .profile-card { padding: 24px 14px; } .container { padding: 24px 12px 32px; } }
+  </style>
+</head>
+<body>
+  <canvas id="tech-canvas"></canvas>
+  <main class="container">
+    <svg class="logo-svg" viewBox="0 0 300 100" shape-rendering="geometricPrecision">
+      <circle cx="50" cy="50" r="40" fill="#8a2be2" />
+      <text x="50" y="62" font-family="Inter, sans-serif" font-size="36" font-weight="900" text-anchor="middle" fill="white">CR</text>
+      <text x="100" y="58" font-family="Inter, sans-serif" font-size="38" font-weight="700" fill="white">Connect</text>
+    </svg>
+    <p class="tagline">Triggering High-Value Connections</p>
+    <article class="profile-card">
+      <h1 id="nameTitle" style="display:none;">JP Mora</h1>
+      <p class="bio-text" id="bioText" style="display:none;">Driving BPO talent positioning and strategic networking in Costa Rica's tech ecosystem.</p>
+      <div id="languageGate" style="margin:18px 0 8px;">
+        <div class="options" id="langOptions" style="grid-template-columns:1fr 1fr;">
+          <button type="button" class="option-btn" data-lang="es">Español</button>
+          <button type="button" class="option-btn" data-lang="en">English</button>
+        </div>
+      </div>
+      <form id="survey-form" class="hidden">
+        <div id="survey"></div>
+      </form>
+      <div id="finishedNote" class="finished-note"></div>
+      <a id="linkedinBtn" href="https://www.linkedin.com/in/goalbroker/" class="btn-action btn-linkedin" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> CONNECT ON LINKEDIN</a>
+    </article>
+    <footer class="copyright">&copy; 2026 CR Connect, Costa Rica.</footer>
+  </main>
+  
+<script>
+'use strict';
+const canvas = document.getElementById('tech-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let incandescentPoints = [];
+function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; for (let i = 0; i < 60; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 }); }
+function createIncandescentPoint() { return { x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, life: 1, decay: 0.006, color: Math.random() > 0.5 ? '#00d4ff' : '#8a2be2' }; }
+function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); if (Math.random() > 0.96 && incandescentPoints.length < 10) incandescentPoints.push(createIncandescentPoint()); ctx.globalCompositeOperation = 'lighter'; incandescentPoints.forEach((ip, i) => { ctx.beginPath(); ctx.arc(ip.x, ip.y, 2.5 * ip.life, 0, Math.PI * 2); ctx.fillStyle = ip.color; ctx.shadowBlur = 20 * ip.life; ctx.shadowColor = ip.color; ctx.fill(); ip.x += ip.vx; ip.y += ip.vy; ip.life -= ip.decay; if (ip.life <= 0) incandescentPoints.splice(i, 1); }); ctx.shadowBlur = 0; ctx.fillStyle = 'rgba(158, 63, 246, 0.8)'; ctx.strokeStyle = 'rgba(158, 63, 246, 0.25)'; particles.forEach((p, i) => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2); ctx.fill(); for (let j = i + 1; j < particles.length; j++) { const p2 = particles[j]; const dist = Math.hypot(p.x - p2.x, p.y - p2.y); if (dist < 120) { ctx.lineWidth = (1 - dist / 120) * 1.0; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); } } }); ctx.globalCompositeOperation = 'source-over'; requestAnimationFrame(draw); }
+window.addEventListener('resize', init, { passive: true }); init(); draw();
+
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwIBJGsOMS8yunHb9iSz1Djnnz3x6YQ-s-RHaHX9egEkdotjpnNiJ3ZmPeXb_TtjQHW/exec';
+const deviceType = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+const dictionaries = {
+  en: { slogan: 'Triggering High-Value Connections', bio: "Driving BPO talent positioning and strategic networking in Costa Rica's tech ecosystem.", completed: 'Survey completed. Your profile is ready.', linkedin: 'CONNECT ON LINKEDIN', back: 'BACK', continue: 'CONTINUE', steps: [ { key: 'role', label: '1. Role', type: 'buttons', options: ['C-Level','Recruiter','Student','Investor','Manager','Dev/Engineer','Sales','Marketing'] }, { key: 'industry', label: '2. Industry', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Education','Healthcare','Finance','Other'] }, { key: 'lookingFor', label: '3. Looking For', type: 'buttons', options: ['Jobs','Hiring','Networking','Partnerships','Clients','Discovering','Founding','Investing'] }, { key: 'companyName', label: '4. Company Name', type: 'input', placeholder: 'Enter company name' } ] },
+  es: { slogan: 'Impulsando Conexiones de Alto Valor', bio: 'Impulsando el posicionamiento de talento BPO y el networking estratégico en el ecosistema tech de Costa Rica.', completed: 'Encuesta completada. Tu perfil está listo.', linkedin: 'CONECTAR EN LINKEDIN', back: 'ATRÁS', continue: 'CONTINUAR', steps: [ { key: 'role', label: '1. Rol', type: 'buttons', options: ['C-Level','Reclutador','Estudiante','Inversionista','Gerente','Dev/Engineer','Ventas','Marketing'] }, { key: 'industry', label: '2. Industria', type: 'buttons', options: ['Tech','BPO','Fintech','SaaS','Educación','Salud','Finanzas','Otro'] }, { key: 'lookingFor', label: '3. Qué buscas', type: 'buttons', options: ['Empleo','Contratación','Networking','Alianzas','Clientes','Descubrir','Fundar','Invertir'] }, { key: 'companyName', label: '4. Nombre de la empresa', type: 'input', placeholder: 'Ingresa el nombre de la empresa' } ] }
+};
+
+let lang = null;
+let current = 0;
+const answers = {};
+const surveyForm = document.getElementById('survey-form');
+const survey = document.getElementById('survey');
+const finishedNote = document.getElementById('finishedNote');
+const linkedinBtn = document.getElementById('linkedinBtn');
+const bio = document.getElementById('bioText');
+const slogan = document.querySelector('.tagline');
+const langGate = document.getElementById('languageGate');
+const nameTitle = document.getElementById('nameTitle');
+
+function setLanguage(next) {
+  lang = next;
+  document.documentElement.lang = next;
+  slogan.textContent = dictionaries[lang].slogan;
+  nameTitle.style.display = 'block';
+  bio.style.display = 'block';
+  bio.textContent = dictionaries[lang].bio;
+  linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
+  langGate.classList.add('hidden');
+  surveyForm.classList.remove('hidden');
+  nameTitle.classList.add('fade-in');
+  bio.classList.add('fade-in');
+  current = 0;
+  render();
+}
+
+document.querySelectorAll('#langOptions .option-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+
+function render() {
+  const step = dictionaries[lang].steps[current];
+  let html = '<div class="survey-step"><button type="button" class="btn-action back" id="backBtn" style="background:#111;color:#fff;margin-bottom:12px;width:100%;"><i class="fas fa-arrow-left"></i> ' + dictionaries[lang].back + '</button><div class="question-label">' + step.label + '</div>';
+  if (step.type === 'buttons') {
+    html += '<div class="options">' + step.options.map(o => `<button type="button" class="option-btn" data-value="${o}">${o}</button>`).join('') + '</div>';
+  } else {
+    html += `<input id="companyInput" name="companyName" class="text-input" type="text" placeholder="${step.placeholder}">`;
+    html += `<div class="survey-footer"><button id="nextBtn" type="submit" class="btn-action btn-linkedin" style="display:flex; margin-top:14px; width:100%;">${dictionaries[lang].continue}</button></div>`;
+  }
+  html += '</div>';
+  survey.innerHTML = html;
+
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) backBtn.onclick = () => {
+    if (current === 0) {
+      lang = null;
+      document.documentElement.lang = 'en';
+      bio.style.display = 'none';
+      nameTitle.style.display = 'none';
+      surveyForm.classList.add('hidden');
+      langGate.classList.remove('hidden');
+      finishedNote.style.display = 'none';
+      linkedinBtn.style.display = 'none';
+      survey.innerHTML = '';
+      return;
+    }
+    current--;
+    render();
+  };
+
+  if (step.type === 'buttons') {
+    document.querySelectorAll('.option-btn').forEach(btn => btn.addEventListener('click', e => {
+      answers[step.key] = e.currentTarget.dataset.value;
+      current++;
+      if (current >= dictionaries[lang].steps.length) {
+        surveyForm.requestSubmit();
+      } else {
+        render();
+      }
+    }));
+  } else {
+    const input = document.getElementById('companyInput');
+    const footer = document.querySelector('.survey-footer');
+    input.addEventListener('input', () => { footer.style.display = input.value.trim() ? 'block' : 'none'; });
+  }
+}
+
+async function submitForm() {
+  const formData = {
+    role: answers.role || '',
+    industry: answers.industry || '',
+    lookingFor: answers.lookingFor || '',
+    companyName: answers.companyName || document.querySelector('[name="companyName"]').value || '',
+    deviceType
+  };
+  try {
+    const response = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    let result = null;
+    try { result = await response.json(); } catch (_) {}
+    if (result && result.ok === true) {
+      finishedNote.textContent = dictionaries[lang].completed;
+      finishedNote.style.display = 'block';
+      linkedinBtn.style.display = 'flex';
+      linkedinBtn.innerHTML = `<i class="fab fa-linkedin"></i> ${dictionaries[lang].linkedin}`;
+      survey.innerHTML = '';
+    } else {
+      throw new Error('Bad response');
+    }
+  } catch (err) {
+    console.error('Error en el envío:', err);
+    alert('Error de conexión');
+  }
+}
+
+surveyForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!lang) return;
+  await submitForm();
+});
+</script>
+
+</body>
+</html>
